@@ -10,12 +10,14 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { InfiniteScrollDirective } from './directives/infinite-scroll.directive';
 
 const SHARED_COMPONENTS = [
   ListViewComponent,
   PathNotFoundComponent,
   HeaderComponent,
   LoaderComponent,
+  InfiniteScrollDirective
 ];
 
 const SHARED_MODULES = [
