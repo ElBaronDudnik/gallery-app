@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Photo } from '../../../core/models/photo';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-view',
   templateUrl: './list-view.component.html',
   styleUrls: ['./list-view.component.scss']
 })
-export class ListViewComponent implements OnInit {
+export class ListViewComponent {
+  @Input() data!: Observable<Photo[]>;
+  @Output() click: EventEmitter<Photo> = new EventEmitter<Photo>();
 
-  constructor() { }
-
-  ngOnInit(): void {
+  photoById(index: number, photo: Photo): string {
+    return photo.id;
   }
-
 }

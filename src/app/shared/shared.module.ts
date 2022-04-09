@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { RouterModule } from '@angular/router';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 const SHARED_COMPONENTS = [
   ListViewComponent,
@@ -18,7 +19,8 @@ const SHARED_COMPONENTS = [
 const SHARED_MODULES = [
   CommonModule,
   MatToolbarModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatGridListModule
 ];
 
 @NgModule({
