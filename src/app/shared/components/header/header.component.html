@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="header">
+  <mat-button-toggle-group>
+    <mat-button-toggle
+      value="photos"
+      routerLink="/photos"
+      [checked]="photoButton.isActive"
+      #photoButton="routerLinkActive"
+      [routerLinkActiveOptions]="{exact: true}"
+      routerLinkActive>
+      Photos
+    </mat-button-toggle>
+    <mat-button-toggle
+      value="favorites"
+      routerLink="/favorites"
+      [checked]="favoritesButton.isActive"
+      #favoritesButton="routerLinkActive"
+      routerLinkActive>
+      Favorites
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</mat-toolbar>

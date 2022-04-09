@@ -1,0 +1,19 @@
+@import './../../../../styles.scss';
+
+.header {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mat-button-toggle {
+  margin: 10px;
+  width: 200px
+}
+
+.mat-toolbar-single-row {
+  height: 90px;
+}
+
+.mat-button-toggle-group {
+  border: none;
+}
