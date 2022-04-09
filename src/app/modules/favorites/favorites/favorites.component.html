@@ -1,5 +1,9 @@
 <app-list-view
+  *ngIf="(favoritesPhotos | async)?.length; else noFavorites"
   [data]="favoritesPhotos"
   (clickByPhoto)="onClick($event)">
 </app-list-view>
 
+<ng-template #noFavorites>
+  <p>There is no favorite photos yet</p>
+</ng-template>

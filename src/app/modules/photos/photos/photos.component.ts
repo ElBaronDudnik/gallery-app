@@ -6,7 +6,6 @@ import { Photo } from '../../../core/models/photo';
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent implements OnInit {
   photos!: Observable<Photo[]>;

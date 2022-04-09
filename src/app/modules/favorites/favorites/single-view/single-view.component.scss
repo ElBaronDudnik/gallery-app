@@ -1,0 +1,22 @@
+.container {
+  width: calc(100% - 40px);
+  max-height: calc(100vh - 130px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 20px;
+  position: relative;
+
+  .img-container {
+    display: flex;
+    overflow: hidden;
+  }
+
+  img {
+    margin: 20px;
+    max-height: 80%;
+    object-fit: cover;
+  }
+}
