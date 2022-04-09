@@ -16,7 +16,7 @@ describe('AuthInterceptor', () => {
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true
-      }, HttpService]
+      }]
     });
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);

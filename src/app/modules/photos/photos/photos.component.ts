@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PhotosService } from '../../../core/services/photos/photos.service';
+import { Observable } from 'rxjs';
+import { Photo } from '../../../core/models/photo';
 
 @Component({
   selector: 'app-photos',
@@ -6,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent implements OnInit {
-
-  constructor() { }
+  photos!: Observable<Photo[]>;
+  constructor(private photosService: PhotosService) { }
 
   ngOnInit(): void {
+    this.photos = this.photosService.getPhotos();
   }
 
+  onClick(photo: Photo): void {
+
+  }
 }

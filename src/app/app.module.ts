@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/services/auth-interceptor/auth.interceptor';
+import { PhotosModule } from './modules/photos/photos.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AuthInterceptor } from './core/services/auth-interceptor/auth.intercept
   imports: [
     BrowserModule,
     SharedModule,
+    PhotosModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],

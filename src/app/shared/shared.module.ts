@@ -18,6 +18,7 @@ const SHARED_COMPONENTS = [
 
 const SHARED_MODULES = [
   CommonModule,
+  RouterModule,
   MatToolbarModule,
   MatButtonToggleModule,
   MatGridListModule
@@ -29,7 +30,6 @@ const SHARED_MODULES = [
   ],
   imports: [
     ...SHARED_MODULES,
-    RouterModule
   ],
   exports: [
     ...SHARED_COMPONENTS,
