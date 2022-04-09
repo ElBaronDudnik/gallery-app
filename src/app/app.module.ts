@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/services/auth-interceptor/auth.interceptor';
 import { PhotosModule } from './modules/photos/photos.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PhotosModule } from './modules/photos/photos.module';
     BrowserModule,
     SharedModule,
     PhotosModule,
+    FavoritesModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],

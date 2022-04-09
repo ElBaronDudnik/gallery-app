@@ -1,1 +1,5 @@
-<!--<app-list-view-component></app-list-view-component>-->
+<app-list-view
+  [data]="favoritesPhotos"
+  (clickByPhoto)="onClick($event)">
+</app-list-view>
+

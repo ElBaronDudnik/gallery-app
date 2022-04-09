@@ -17,6 +17,6 @@ export class PhotosComponent implements OnInit {
   }
 
   onClick(photo: Photo): void {
-
+    this.photosService.addToFavorite(photo);
   }
 }
