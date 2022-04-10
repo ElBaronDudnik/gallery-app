@@ -2,7 +2,7 @@
   class="list-view"
   cols="3" rowHeight="1:1" gutterSize="10"
   *ngIf="(data | async)?.length;">
-  <mat-grid-tile *ngFor="let photo of data | async; trackBy: photoById" (click)="clickByPhoto.emit(photo)">
+  <mat-grid-tile class="list-item" *ngFor="let photo of data | async; trackBy: photoById" (click)="clickByPhoto.emit(photo)">
     <img [src]="photo.urls.small" [alt]="photo.alt_description">
   </mat-grid-tile>
 </mat-grid-list>

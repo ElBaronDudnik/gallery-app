@@ -11,10 +11,10 @@ export class InfiniteScrollDirective implements OnInit {
 
   ngOnInit(): void {
     const element = this.elementRef.nativeElement;
-    console.log(this.elementRef.nativeElement.clientHeight);
     fromEvent(window, 'scroll')
       .pipe(
-        filter(() => Math.floor(element.clientHeight - window.innerHeight - window.scrollY) < 1),
+        filter(() =>
+          Math.floor(element.clientHeight - window.innerHeight - window.scrollY) < 5),
         debounceTime(500)
       )
       .subscribe(() => this.loadMore.emit());

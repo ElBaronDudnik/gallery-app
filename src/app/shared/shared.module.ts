@@ -11,13 +11,14 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { InfiniteScrollDirective } from './directives/infinite-scroll.directive';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const SHARED_COMPONENTS = [
   ListViewComponent,
   PathNotFoundComponent,
   HeaderComponent,
   LoaderComponent,
-  InfiniteScrollDirective
+  InfiniteScrollDirective,
 ];
 
 const SHARED_MODULES = [
@@ -27,7 +28,8 @@ const SHARED_MODULES = [
   MatButtonToggleModule,
   MatGridListModule,
   MatProgressSpinnerModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
