@@ -63,7 +63,7 @@ describe('HttpService', () => {
     it('should return expected photos obj with corresponding id', (done) => {
       const id = 'abc12';
       const expectedData: Photo = { ...mockPhoto, id};
-      const expectedUrl = `${url}/:${id}`;
+      const expectedUrl = `${url}/${id}`;
 
       service.getPhoto(id).subscribe((result) => {
         expect(result).toEqual(expectedData);

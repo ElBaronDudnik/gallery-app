@@ -20,7 +20,7 @@ describe('NotificationService', () => {
     expect(service).toBeTruthy();
   });
 
-  fit('#openNotification should trigger opening snackBar with default action text', () => {
+  it('#openNotification should trigger opening snackBar with default action text', () => {
     service.openNotification('Test message');
     expect(matSnackBarSpy.open).toHaveBeenCalledWith('Test message', 'Close', { duration: 3000 });
   })

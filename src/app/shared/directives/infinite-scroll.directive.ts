@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime, filter, tap } from 'rxjs/operators';
 
 @Directive({
   selector: '[appInfiniteScroll]'
@@ -15,7 +15,8 @@ export class InfiniteScrollDirective implements OnInit {
       .pipe(
         filter(() =>
           Math.floor(element.clientHeight - window.innerHeight - window.scrollY) < 5),
-        debounceTime(500)
+        debounceTime(500),
+        tap(console.log),
       )
       .subscribe(() => this.loadMore.emit());
   }
