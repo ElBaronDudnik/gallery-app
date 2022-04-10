@@ -9,7 +9,7 @@ import { LocalStorageService } from '../local-storage/local-storage.service';
   providedIn: 'root'
 })
 export class FavoritesService {
-  favorites: BehaviorSubject<Photo[]> = new BehaviorSubject<Photo[]>([]);
+  private favorites: BehaviorSubject<Photo[]> = new BehaviorSubject<Photo[]>([]);
   private key = 'favorites';
 
   constructor(private localStorageService: LocalStorageService) {

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { PhotosRoutingModule } from './photos-routing.module';
 import { PhotosComponent } from './photos/photos.component';
@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     HttpClientModule,
     PhotosRoutingModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PhotosModule { }

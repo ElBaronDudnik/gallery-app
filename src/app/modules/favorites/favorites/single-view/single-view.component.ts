@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services/http/http.service';
 import { ActivatedRoute } from '@angular/router';
 import { FavoritesService } from '../../../../core/services/favorites/favorites.service';
+import { PhotosService } from '../../../../core/services/photos/photos.service';
 
 @Component({
   selector: 'app-single-view',
@@ -15,12 +16,14 @@ export class SingleViewComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
-    private favoriteService: FavoritesService
+    private favoriteService: FavoritesService,
   ) { }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.photo = this.httpService.getPhoto(id);
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id) {
+      this.photo = this.httpService.getPhoto(id);
+    }
   }
 
   removeFromFavorites(photo: Photo): void {

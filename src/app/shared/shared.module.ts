@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { PathNotFoundComponent } from './components/path-not-found/path-not-found.component';
@@ -42,6 +42,7 @@ const SHARED_MODULES = [
   exports: [
     ...SHARED_COMPONENTS,
     ...SHARED_MODULES
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SharedModule { }

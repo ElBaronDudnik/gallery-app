@@ -3,22 +3,29 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PhotosComponent } from './photos.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NotificationService } from '../../../core/services/notification/notification.service';
+import { mockPhoto } from '../../../shared/testing-helpers/photo.mock';
+import { PhotosService } from '../../../core/services/photos/photos.service';
 
 describe('PhotosComponent', () => {
   let component: PhotosComponent;
   let fixture: ComponentFixture<PhotosComponent>;
   let notificationServiceSpy: jasmine.SpyObj<NotificationService>;
+  let photosServiceSpy: jasmine.SpyObj<PhotosService>;
 
   beforeEach(async () => {
     const spy = jasmine.createSpyObj('NotificationService', ['openNotification']);
+    const photosSpy = jasmine.createSpyObj('PhotosService', ['getPhotos', 'addToFavorite']);
     await TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
       declarations: [ PhotosComponent ],
-      providers: [{ provide: NotificationService, useValue: spy }]
+      providers: [
+        { provide: NotificationService, useValue: spy },
+        { provide: PhotosService, useValue: photosSpy }
+      ]
     })
     .compileComponents();
 
     notificationServiceSpy = TestBed.inject(NotificationService) as jasmine.SpyObj<NotificationService>;
+    photosServiceSpy = TestBed.inject(PhotosService) as jasmine.SpyObj<PhotosService>;
   });
 
   beforeEach(() => {
@@ -29,5 +36,21 @@ describe('PhotosComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should load photos on ngOnInit', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(photosServiceSpy.getPhotos).toHaveBeenCalled();
+  });
+
+  it('should add photo to favorites on click', () => {
+    component.onClick(mockPhoto);
+    expect(photosServiceSpy.addToFavorite).toHaveBeenCalledWith(mockPhoto);
+  });
+
+  it('should show notification on click', () => {
+    component.onClick(mockPhoto);
+    expect(notificationServiceSpy.openNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} was added to favorites`);
   });
 });
