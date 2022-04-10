@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ListViewComponent {
   @Input() data!: Observable<Photo[]>;
+  @Input() isLoading!: boolean | null;
   @Output() clickByPhoto: EventEmitter<Photo> = new EventEmitter<Photo>();
 
   photoById(index: number, photo: Photo): string {

@@ -16,7 +16,7 @@ export class FavoritesComponent implements OnInit {
     this.favoritesPhotos = this.favoriteService.getFavorites();
   }
 
-  onClick(photo: Photo) {
+  onClick(photo: Photo): void {
     this.router.navigate(['/photos', photo.id])
   }
 }

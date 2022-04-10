@@ -20,10 +20,12 @@ export class FavoritesService {
   }
 
   addToFavorites(photo: Photo): void {
-    if (!this.favorites.getValue().find((photoEl: Photo) => photoEl.id === photo.id)) {
-      this.favorites.next([...this.favorites.getValue(), photo]);
-      this.updateLocalStorage();
-    }
+    this.favorites.next([...this.favorites.getValue(), photo]);
+    this.updateLocalStorage();
+  }
+
+  isExist(photo: Photo): boolean {
+    return !!this.favorites.getValue().find((photoEl: Photo) => photoEl.id === photo.id);
   }
 
   getFavorites(): Observable<Photo[]> {

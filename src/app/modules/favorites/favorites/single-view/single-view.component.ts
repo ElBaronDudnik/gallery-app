@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services/http/http.service';
 import { ActivatedRoute } from '@angular/router';
 import { FavoritesService } from '../../../../core/services/favorites/favorites.service';
-import { PhotosService } from '../../../../core/services/photos/photos.service';
+import { NotificationService } from '../../../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-single-view',
@@ -17,6 +17,7 @@ export class SingleViewComponent implements OnInit {
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
     private favoriteService: FavoritesService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +28,7 @@ export class SingleViewComponent implements OnInit {
   }
 
   removeFromFavorites(photo: Photo): void {
+    this.notificationService.openNotification(`The photo by ${photo.user.name} was removed from favorites`);
     this.favoriteService.removeFromFavorites(photo);
   }
 }

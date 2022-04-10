@@ -3,6 +3,7 @@ import { PhotosService } from '../../../core/services/photos/photos.service';
 import { Observable } from 'rxjs';
 import { Photo } from '../../../core/models/photo';
 import { NotificationService } from '../../../core/services/notification/notification.service';
+import { LoaderService } from '../../../core/services/loader/loader.service';
 
 @Component({
   selector: 'app-photos',
@@ -10,14 +11,24 @@ import { NotificationService } from '../../../core/services/notification/notific
 })
 export class PhotosComponent implements OnInit {
   photos!: Observable<Photo[]>;
-  constructor(private photosService: PhotosService, private notification: NotificationService) { }
+  isLoading!: Observable<boolean | null>;
+  constructor(
+    private photosService: PhotosService,
+    private notification: NotificationService,
+    private loader: LoaderService
+  ) { }
 
   ngOnInit(): void {
     this.photos = this.photosService.getPhotos();
+    this.isLoading = this.loader.getLoaderState();
   }
 
   onClick(photo: Photo): void {
-    this.notification.openNotification(`Photo by ${photo.user.name} was added to favorites`);
-    this.photosService.addToFavorite(photo);
+    if (!this.photosService.isExistInFavorites(photo)) {
+      this.notification.openNotification(`Photo by ${photo.user.name} was added to favorites`);
+      this.photosService.addToFavorite(photo);
+    } else {
+      this.notification.openNotification(`Photo by ${photo.user.name} has already added to favorites`);
+    }
   }
 }

@@ -14,7 +14,7 @@ describe('PhotosComponent', () => {
 
   beforeEach(async () => {
     const spy = jasmine.createSpyObj('NotificationService', ['openNotification']);
-    const photosSpy = jasmine.createSpyObj('PhotosService', ['getPhotos', 'addToFavorite']);
+    const photosSpy = jasmine.createSpyObj('PhotosService', ['getPhotos', 'addToFavorite', 'isExistInFavorites']);
     await TestBed.configureTestingModule({
       declarations: [ PhotosComponent ],
       providers: [
