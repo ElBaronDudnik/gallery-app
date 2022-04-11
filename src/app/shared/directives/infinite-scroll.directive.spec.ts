@@ -1,6 +1,6 @@
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, discardPeriodicTasks, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 @Component({
@@ -34,13 +34,11 @@ describe('InfiniteScrollDirective', () => {
     expect(directive).toBeTruthy();
   });
 
-  xit('should emit loadMore event when scroll to the bottom of the page', fakeAsync(() => {
-    const spy = spyOn(component, 'onLoadMore');
+  it('should emit loadMore event on scroll', fakeAsync(() => {
+    const loadMoreSpy = spyOn(component, 'onLoadMore');
     window.dispatchEvent(new Event('scroll'));
-    // window.scrollBy(0, window.innerHeight);
-    tick(100);
-    fixture.detectChanges();
-
-    expect(component.onLoadMore).toHaveBeenCalled();
+    flush();
+    expect(loadMoreSpy).toHaveBeenCalled();
+    discardPeriodicTasks()
   }));
 });

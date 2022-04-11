@@ -20,7 +20,10 @@ describe('AppComponent', () => {
     const spy = jasmine.createSpyObj('PhotosService', ['loadPhotos']);
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([{ path: 'favorites', component: TestComponent}]),
+        RouterTestingModule.withRoutes([
+          { path: 'favorites', component: TestComponent },
+          { path: 'photos', component: TestComponent },
+          ]),
         HttpClientTestingModule
       ],
       declarations: [
@@ -55,13 +58,19 @@ describe('AppComponent', () => {
     expect(photoServiceSpy.loadPhotos).toHaveBeenCalled();
   });
 
-  xit('should load photos on loadMore only on photos page', fakeAsync(() => {
-    // spyOn(router, 'navigate');
-    router.navigate(['favorites']);
+  it('should trigger load photos for 2 times when on /photos page', fakeAsync(() => {
+    router.navigate(['/photos']);
     tick();
     fixture.detectChanges();
     component.onLoadMore();
-    console.log(router.routerState.snapshot.url);
-    expect(photoServiceSpy.loadPhotos).toHaveBeenCalled();
-  }))
+    expect(photoServiceSpy.loadPhotos).toHaveBeenCalledTimes(2);
+  }));
+
+  it('should trigger load photos for 1 time when on /favorites page', fakeAsync(() => {
+    router.navigate(['/favorites']);
+    tick();
+    fixture.detectChanges();
+    component.onLoadMore();
+    expect(photoServiceSpy.loadPhotos).toHaveBeenCalledTimes(1);
+  }));
 });

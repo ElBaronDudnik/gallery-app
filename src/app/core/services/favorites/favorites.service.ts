@@ -14,6 +14,7 @@ export class FavoritesService {
 
   constructor(private localStorageService: LocalStorageService) {
     const favoritesFromLocalStorage = this.localStorageService.getFromLocalStorage<Photo[]>(this.key);
+    console.log(favoritesFromLocalStorage);
     if (favoritesFromLocalStorage?.length) {
       this.favorites.next(favoritesFromLocalStorage);
     }

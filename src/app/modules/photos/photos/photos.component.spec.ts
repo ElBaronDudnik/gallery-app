@@ -53,4 +53,16 @@ describe('PhotosComponent', () => {
     component.onClick(mockPhoto);
     expect(notificationServiceSpy.openNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} was added to favorites`);
   });
+
+  it('should not add photo to favorites on click when photo already exist in collection', () => {
+    photosServiceSpy.isExistInFavorites.and.returnValue(true);
+    component.onClick(mockPhoto);
+    expect(photosServiceSpy.addToFavorite).not.toHaveBeenCalled();
+  });
+
+  it('should show corresponding notification when photo already exist in collection', () => {
+    photosServiceSpy.isExistInFavorites.and.returnValue(true);
+    component.onClick(mockPhoto);
+    expect(notificationServiceSpy.openNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} has already added to favorites`);
+  });
 });

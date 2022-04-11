@@ -8,33 +8,28 @@ import { NotificationService } from '../../../../core/services/notification/noti
 import { By } from '@angular/platform-browser';
 import { FavoritesService } from '../../../../core/services/favorites/favorites.service';
 import { mockPhoto } from '../../../../shared/testing-helpers/photo.mock';
+import { of } from 'rxjs';
+import { ActivatedRouteStub } from '../../../../shared/testing-helpers/activated-route-stub';
 
-function snapshot(id: string | null) {
-  return {
-    snapshot: {
-      paramMap: { get: (key: any) => id }
-    }
-  }
-}
 
 describe('SingleViewComponent', () => {
   let component: SingleViewComponent;
   let fixture: ComponentFixture<SingleViewComponent>;
   let httpServiceSpy: jasmine.SpyObj<HttpService>;
-  let activatedRouteStub: jasmine.SpyObj<ActivatedRoute>;
+  let activatedRouteStub: ActivatedRouteStub;
   let notificationServiceSpy: jasmine.SpyObj<NotificationService>;
   let favoriteServiceSpy: jasmine.SpyObj<FavoritesService>;
 
   beforeEach(async () => {
     const httpSpy = jasmine.createSpyObj('HttpService', ['getPhoto']);
     const notificationSpy = jasmine.createSpyObj('NotificationService', ['openNotification']);
-    const favoriteServiceSpy = jasmine.createSpyObj('FavoritesService', 'removeFromFavorites');
+    const favoriteServiceSpy = jasmine.createSpyObj('FavoritesService', ['removeFromFavorites']);
+    activatedRouteStub = new ActivatedRouteStub();
     await TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
       declarations: [ SingleViewComponent ],
       providers: [
         { provide: HttpService, useValue: httpSpy },
-        { provide: ActivatedRoute, useValue: snapshot('123') },
+        { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: NotificationService, useValue: notificationSpy },
         { provide: FavoritesService, useValue: favoriteServiceSpy }
       ]
@@ -46,7 +41,6 @@ describe('SingleViewComponent', () => {
     fixture = TestBed.createComponent(SingleViewComponent);
     component = fixture.componentInstance;
     httpServiceSpy = TestBed.inject(HttpService) as jasmine.SpyObj<HttpService>;
-    activatedRouteStub = TestBed.inject(ActivatedRoute) as jasmine.SpyObj<ActivatedRoute>;
     notificationServiceSpy = TestBed.inject(NotificationService) as jasmine.SpyObj<NotificationService>;
     favoriteServiceSpy = TestBed.inject(FavoritesService) as jasmine.SpyObj<FavoritesService>;
     fixture.detectChanges();
@@ -57,23 +51,40 @@ describe('SingleViewComponent', () => {
   });
 
   it('should get photo by id', () => {
+    activatedRouteStub.setParamMap({ id: '123' });
+
     component.ngOnInit();
     fixture.detectChanges();
     expect(httpServiceSpy.getPhoto).toHaveBeenCalledWith('123');
   });
 
-  it('should remove photo from favorites on corresponding button click', () => {
-    const removeButton = fixture.debugElement.query(By.css('button'));
-    removeButton.triggerEventHandler('click', null);
+  it('should not get photo if no id', () => {
+    component.ngOnInit();
     fixture.detectChanges();
-    expect(favoriteServiceSpy.removeFromFavorites).toHaveBeenCalledWith(mockPhoto);
+    expect(activatedRouteStub.snapshot.paramMap.get('id')).toEqual(null);
+    expect(httpServiceSpy.getPhoto).not.toHaveBeenCalled();
   });
 
-  it('should show notification on remove', () => {
-    const removeButton = fixture.debugElement.query(By.css('button'));
-    removeButton.triggerEventHandler('click', null);
-    fixture.detectChanges();
-    expect(notificationServiceSpy.openNotification)
-      .toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} was removed from favorites`);
+  describe('#removeFromFavorites', () => {
+    beforeEach(() => {
+      component.photo = of(mockPhoto);
+      fixture.detectChanges();
+      const removeButton = fixture.debugElement.query(By.css('button'));
+      removeButton.triggerEventHandler('click', null);
+    });
+
+    it('should remove photo from favorites on corresponding button click', () => {
+      expect(favoriteServiceSpy.removeFromFavorites).toHaveBeenCalledWith(mockPhoto);
+    });
+
+    it('should show notification on remove', () => {
+      expect(notificationServiceSpy.openNotification)
+        .toHaveBeenCalledWith(`The photo by ${mockPhoto.user.name} was removed from favorites`);
+    });
   });
+
+  it('should show #noPhoto template when there is no photo', () => {
+    const noPhotoTemplate = fixture.debugElement.query(By.css('.no-photo'));
+    expect(noPhotoTemplate).toBeTruthy();
+  })
 });
