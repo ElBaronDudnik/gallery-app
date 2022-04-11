@@ -1,14 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
 import { LoaderService } from './loader.service';
-import { Component } from '@angular/core';
-
-// @Component({
-//   template: '<div *ngIf="loaderService.getLoaderState() | async"></div>'
-// })
-// export class TestComponent {
-//   constructor(public loaderService: LoaderService) {}
-// }
 
 describe('LoaderService', () => {
   let service: LoaderService;

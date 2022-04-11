@@ -23,5 +23,10 @@ describe('NotificationService', () => {
   it('#showNotification should trigger opening snackBar with default action text', () => {
     service.showNotification('Test message');
     expect(matSnackBarSpy.open).toHaveBeenCalledWith('Test message', 'Close', { duration: 3000 });
-  })
+  });
+
+  it('#showError should trigger opening snackBar with corresponding option', () => {
+    service.showError('Test message');
+    expect(matSnackBarSpy.open).toHaveBeenCalledWith('Test message', 'X', Object({ panelClass: [ 'error' ] }));
+  });
 });

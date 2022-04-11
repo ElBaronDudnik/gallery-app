@@ -1,4 +1,4 @@
-<div class="container" *ngIf="photo | async as photo">
+<div class="container" *ngIf="photoObj | async as photo">
   <div class="img-container">
     <img [src]="photo?.urls?.regular" [alt]="photo?.alt_description">
   </div>

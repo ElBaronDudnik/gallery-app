@@ -13,6 +13,6 @@ export class NotificationService {
   }
 
   showError(message: string): void {
-    this.notification.open(message, 'X', {panelClass: ['error']});
+    this.notification.open(message, 'X', { panelClass: ['error'] });
   }
 }

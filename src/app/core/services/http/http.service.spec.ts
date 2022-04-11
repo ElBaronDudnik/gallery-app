@@ -46,7 +46,7 @@ describe('HttpService', () => {
     it('should return expected array of photos with custom properties', (done) => {
       const customPhotosNumber = 10;
       const expectedData: Photo[] = generateArrayOfPhotos(customPhotosNumber);
-      const expectedUrl = `https://api.unsplash.com/photos?page=1&per_page=${customPhotosNumber}`;
+      const expectedUrl = `${url}?page=1&per_page=${customPhotosNumber}`;
 
       service.getPhotos(1, customPhotosNumber).subscribe((result) => {
         expect(result).toEqual(expectedData);

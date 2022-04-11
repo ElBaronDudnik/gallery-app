@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SingleViewComponent } from './single-view.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { HttpService } from '../../../../core/services/http/http.service';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
 import { By } from '@angular/platform-browser';
-import { FavoritesService } from '../../../../core/services/favorites/favorites.service';
+import { FavoritesService } from '../../services/favorites.service';
 import { mockPhoto } from '../../../../shared/testing-helpers/photo.mock';
 import { of } from 'rxjs';
 import { ActivatedRouteStub } from '../../../../shared/testing-helpers/activated-route-stub';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 
 describe('SingleViewComponent', () => {
@@ -33,6 +33,9 @@ describe('SingleViewComponent', () => {
         { provide: NotificationService, useValue: notificationSpy },
         { provide: FavoritesService, useValue: favoriteServiceSpy }
       ]
+    })
+    .overrideComponent(SingleViewComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     })
     .compileComponents();
   });
@@ -67,7 +70,7 @@ describe('SingleViewComponent', () => {
 
   describe('#removeFromFavorites', () => {
     beforeEach(() => {
-      component.photo = of(mockPhoto);
+      component.photoObj = of(mockPhoto);
       fixture.detectChanges();
       const removeButton = fixture.debugElement.query(By.css('button'));
       removeButton.triggerEventHandler('click', null);
@@ -82,9 +85,4 @@ describe('SingleViewComponent', () => {
         .toHaveBeenCalledWith(`The photo by ${mockPhoto.user.name} was removed from favorites`);
     });
   });
-
-  it('should show #noPhoto template when there is no photo', () => {
-    const noPhotoTemplate = fixture.debugElement.query(By.css('.no-photo'));
-    expect(noPhotoTemplate).toBeTruthy();
-  })
 });

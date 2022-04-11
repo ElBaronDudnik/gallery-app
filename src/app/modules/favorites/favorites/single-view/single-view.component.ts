@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Photo } from '../../../../core/models/photo';
-import { Observable } from 'rxjs';
-import { HttpService } from '../../../../core/services/http/http.service';
 import { ActivatedRoute } from '@angular/router';
-import { FavoritesService } from '../../../../core/services/favorites/favorites.service';
+
+import { Observable } from 'rxjs';
+import { Photo } from '../../../../core/models/photo';
+import { HttpService } from '../../../../core/services/http/http.service';
+import { FavoritesService } from '../../services/favorites.service';
 import { NotificationService } from '../../../../core/services/notification/notification.service';
 
 @Component({
@@ -13,7 +14,7 @@ import { NotificationService } from '../../../../core/services/notification/noti
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleViewComponent implements OnInit {
-  photo!: Observable<Photo | null>;
+  photoObj!: Observable<Photo>;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -24,7 +25,7 @@ export class SingleViewComponent implements OnInit {
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.photo = this.httpService.getPhoto(id);
+      this.photoObj = this.httpService.getPhoto(id);
     }
   }
 

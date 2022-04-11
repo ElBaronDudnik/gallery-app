@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { FavoritesService } from './favorites.service';
-import { LocalStorageService } from '../local-storage/local-storage.service';
+import { LocalStorageService } from '../../../core/services/local-storage/local-storage.service';
 import { mockPhoto } from '../../../shared/testing-helpers/photo.mock';
 
 
@@ -12,7 +12,7 @@ describe('FavoritesService', () => {
   beforeEach(() => {
     const spy = jasmine.createSpyObj('LocalStorageService', ['saveToLocalStorage', 'getFromLocalStorage']);
     TestBed.configureTestingModule({
-      providers: [ FavoritesService, { provide: LocalStorageService, useValue: spy}]
+      providers: [ FavoritesService, { provide: LocalStorageService, useValue: spy }]
     });
     service = TestBed.inject(FavoritesService);
     localStorageSpy = TestBed.inject(LocalStorageService) as jasmine.SpyObj<LocalStorageService>;

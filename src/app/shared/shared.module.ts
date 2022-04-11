@@ -18,6 +18,9 @@ const SHARED_COMPONENTS = [
   PathNotFoundComponent,
   HeaderComponent,
   LoaderComponent,
+];
+
+const SHARED_DIRECTIVES = [
   InfiniteScrollDirective,
 ];
 
@@ -35,12 +38,14 @@ const SHARED_MODULES = [
 @NgModule({
   declarations: [
     ...SHARED_COMPONENTS,
+    ...SHARED_DIRECTIVES
   ],
   imports: [
     ...SHARED_MODULES,
   ],
   exports: [
     ...SHARED_COMPONENTS,
+    ...SHARED_DIRECTIVES,
     ...SHARED_MODULES
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

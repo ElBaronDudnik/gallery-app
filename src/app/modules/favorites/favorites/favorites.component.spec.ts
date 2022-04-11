@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FavoritesComponent } from './favorites.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FavoritesService } from '../../../core/services/favorites/favorites.service';
+import { FavoritesService } from '../services/favorites.service';
 import { mockPhoto } from '../../../shared/testing-helpers/photo.mock';
 import { Router } from '@angular/router';
 
@@ -40,9 +40,9 @@ describe('FavoritesComponent', () => {
     expect(favoriteServiceSpy.getFavorites).toHaveBeenCalled();
   });
 
-  it('should navigate to /photos/:id on click', () => {
+  it('should navigate to /favorites/:id on click', () => {
     const navigateSpy = spyOn(router, 'navigate');
     component.onClick(mockPhoto);
-    expect(navigateSpy).toHaveBeenCalledWith(['/photos', mockPhoto.id]);
+    expect(navigateSpy).toHaveBeenCalledWith(['/favorites', mockPhoto.id]);
   });
 });

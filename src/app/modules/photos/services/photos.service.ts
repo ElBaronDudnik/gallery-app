@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Photo } from '../../models/photo';
-import { HttpService } from '../http/http.service';
 import { take } from 'rxjs/operators';
-import { FavoritesService } from '../favorites/favorites.service';
-import { LoaderService } from '../loader/loader.service';
+
+import { Photo } from '../../../core/models/photo';
+import { HttpService } from '../../../core/services/http/http.service';
+import { FavoritesService } from '../../favorites/services/favorites.service';
+import { LoaderService } from '../../../core/services/loader/loader.service';
 
 @Injectable({
   providedIn: 'root'

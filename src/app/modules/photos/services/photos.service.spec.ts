@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { PhotosService } from './photos.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FavoritesService } from '../favorites/favorites.service';
-import { HttpService } from '../http/http.service';
+import { FavoritesService } from '../../favorites/services/favorites.service';
+import { HttpService } from '../../../core/services/http/http.service';
 import { mockPhoto } from '../../../shared/testing-helpers/photo.mock';
 import { of } from 'rxjs';
 
@@ -13,7 +13,7 @@ describe('PhotosService', () => {
   let httpServiceSpy: jasmine.SpyObj<HttpService>;
 
   beforeEach(() => {
-    const spyFavorites = jasmine.createSpyObj('FavoriteService', ['addToFavorites']);
+    const spyFavorites = jasmine.createSpyObj('FavoriteService', ['addToFavorites', 'isExist']);
     const spyHttp = jasmine.createSpyObj('HttpService', ['getRandom']);
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -44,4 +44,9 @@ describe('PhotosService', () => {
     service.addToFavorite(mockPhoto);
     expect(favoriteServiceSpy.addToFavorites).toHaveBeenCalledWith(mockPhoto);
   });
+
+  it('#isExistInFavorites should return existance in favorites collection', () => {
+    service.isExistInFavorites(mockPhoto);
+    expect(favoriteServiceSpy.isExist).toHaveBeenCalledWith(mockPhoto);
+  })
 });

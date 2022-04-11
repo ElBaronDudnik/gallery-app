@@ -1,8 +1,8 @@
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { PhotosService } from './core/services/photos/photos.service';
+import { PhotosService } from './modules/photos/services/photos.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
@@ -20,10 +20,7 @@ describe('AppComponent', () => {
     const spy = jasmine.createSpyObj('PhotosService', ['loadPhotos']);
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([
-          { path: 'favorites', component: TestComponent },
-          { path: 'photos', component: TestComponent },
-          ]),
+        RouterTestingModule.withRoutes([]),
         HttpClientTestingModule
       ],
       declarations: [
@@ -57,20 +54,4 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     expect(photoServiceSpy.loadPhotos).toHaveBeenCalled();
   });
-
-  it('should trigger load photos for 2 times when on /photos page', fakeAsync(() => {
-    router.navigate(['/photos']);
-    tick();
-    fixture.detectChanges();
-    component.onLoadMore();
-    expect(photoServiceSpy.loadPhotos).toHaveBeenCalledTimes(2);
-  }));
-
-  it('should trigger load photos for 1 time when on /favorites page', fakeAsync(() => {
-    router.navigate(['/favorites']);
-    tick();
-    fixture.detectChanges();
-    component.onLoadMore();
-    expect(photoServiceSpy.loadPhotos).toHaveBeenCalledTimes(1);
-  }));
 });

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PhotosService } from './core/services/photos/photos.service';
-import { Router } from '@angular/router';
+import { PhotosService } from './modules/photos/services/photos.service'
 
 @Component({
   selector: 'app-root',
@@ -8,15 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private photosService: PhotosService, private router: Router) {}
+  constructor(private photosService: PhotosService) {}
 
   ngOnInit(): void {
     this.photosService.loadPhotos();
-  }
-
-  onLoadMore() {
-    if (this.router.routerState.snapshot.url === '/photos') {
-      this.photosService.loadPhotos()
-    }
   }
 }

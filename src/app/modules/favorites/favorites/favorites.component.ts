@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Photo } from '../../../core/models/photo';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { FavoritesService } from '../../../core/services/favorites/favorites.service';
+import { Observable } from 'rxjs';
+
+import { Photo } from '../../../core/models/photo';
+import { FavoritesService } from '../services/favorites.service';
 
 @Component({
   selector: 'app-favorites',
@@ -18,6 +19,6 @@ export class FavoritesComponent implements OnInit {
   }
 
   onClick(photo: Photo): void {
-    this.router.navigate(['/photos', photo.id])
+    this.router.navigate(['/favorites', photo.id])
   }
 }
