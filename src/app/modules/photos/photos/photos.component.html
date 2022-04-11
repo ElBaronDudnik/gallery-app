@@ -1,0 +1,13 @@
+<app-list-view
+  *ngIf="(photos | async)?.length"
+  appInfiniteScroll
+  [data]="photos"
+  [isLoading]="isLoading | async"
+  (clickByPhoto)="onClick($event)"
+  (loadMore)="onLoadMore()">
+</app-list-view>
+
+<div class="loader" *ngIf="isLoading | async">
+  <app-loader [fullScreen]="true"></app-loader>
+</div>
+
