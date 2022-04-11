@@ -13,7 +13,7 @@ describe('PhotosComponent', () => {
   let photosServiceSpy: jasmine.SpyObj<PhotosService>;
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('NotificationService', ['openNotification']);
+    const spy = jasmine.createSpyObj('NotificationService', ['showNotification']);
     const photosSpy = jasmine.createSpyObj('PhotosService', ['getPhotos', 'addToFavorite', 'isExistInFavorites']);
     await TestBed.configureTestingModule({
       declarations: [ PhotosComponent ],
@@ -51,7 +51,7 @@ describe('PhotosComponent', () => {
 
   it('should show notification on click', () => {
     component.onClick(mockPhoto);
-    expect(notificationServiceSpy.openNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} was added to favorites`);
+    expect(notificationServiceSpy.showNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} was added to favorites`);
   });
 
   it('should not add photo to favorites on click when photo already exist in collection', () => {
@@ -63,6 +63,6 @@ describe('PhotosComponent', () => {
   it('should show corresponding notification when photo already exist in collection', () => {
     photosServiceSpy.isExistInFavorites.and.returnValue(true);
     component.onClick(mockPhoto);
-    expect(notificationServiceSpy.openNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} has already added to favorites`);
+    expect(notificationServiceSpy.showNotification).toHaveBeenCalledWith(`Photo by ${mockPhoto.user.name} has already added to favorites`);
   });
 });

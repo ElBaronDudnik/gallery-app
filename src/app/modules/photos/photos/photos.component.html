@@ -1,10 +1,11 @@
 <app-list-view
-  *ngIf="(photos | async)?.length; else noPhotos"
+  *ngIf="(photos | async)?.length"
   [data]="photos"
   [isLoading]="isLoading | async"
   (clickByPhoto)="onClick($event)">
 </app-list-view>
 
-<ng-template #noPhotos>
+<div *ngIf="isLoading | async">
   <app-loader [fullScreen]="true"></app-loader>
-</ng-template>
+</div>
+

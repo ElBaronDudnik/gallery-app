@@ -13,11 +13,8 @@ export class FavoritesService {
   private key = 'favorites';
 
   constructor(private localStorageService: LocalStorageService) {
-    const favoritesFromLocalStorage = this.localStorageService.getFromLocalStorage<Photo[]>(this.key);
-    console.log(favoritesFromLocalStorage);
-    if (favoritesFromLocalStorage?.length) {
-      this.favorites.next(favoritesFromLocalStorage);
-    }
+    const favoritesFromLocalStorage = this.localStorageService.getFromLocalStorage<Photo[]>(this.key) || [];
+    this.favorites.next(favoritesFromLocalStorage);
   }
 
   addToFavorites(photo: Photo): void {

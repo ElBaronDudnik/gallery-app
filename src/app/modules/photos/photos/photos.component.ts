@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PhotosService } from '../../../core/services/photos/photos.service';
 import { Observable } from 'rxjs';
 import { Photo } from '../../../core/models/photo';
@@ -8,6 +8,7 @@ import { LoaderService } from '../../../core/services/loader/loader.service';
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhotosComponent implements OnInit {
   photos!: Observable<Photo[]>;
@@ -25,10 +26,10 @@ export class PhotosComponent implements OnInit {
 
   onClick(photo: Photo): void {
     if (!this.photosService.isExistInFavorites(photo)) {
-      this.notification.openNotification(`Photo by ${photo.user.name} was added to favorites`);
+      this.notification.showNotification(`Photo by ${photo.user.name} was added to favorites`);
       this.photosService.addToFavorite(photo);
     } else {
-      this.notification.openNotification(`Photo by ${photo.user.name} has already added to favorites`);
+      this.notification.showNotification(`Photo by ${photo.user.name} has already added to favorites`);
     }
   }
 }

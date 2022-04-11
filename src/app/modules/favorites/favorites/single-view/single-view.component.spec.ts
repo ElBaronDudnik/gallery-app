@@ -22,7 +22,7 @@ describe('SingleViewComponent', () => {
 
   beforeEach(async () => {
     const httpSpy = jasmine.createSpyObj('HttpService', ['getPhoto']);
-    const notificationSpy = jasmine.createSpyObj('NotificationService', ['openNotification']);
+    const notificationSpy = jasmine.createSpyObj('NotificationService', ['showNotification']);
     const favoriteServiceSpy = jasmine.createSpyObj('FavoritesService', ['removeFromFavorites']);
     activatedRouteStub = new ActivatedRouteStub();
     await TestBed.configureTestingModule({
@@ -78,7 +78,7 @@ describe('SingleViewComponent', () => {
     });
 
     it('should show notification on remove', () => {
-      expect(notificationServiceSpy.openNotification)
+      expect(notificationServiceSpy.showNotification)
         .toHaveBeenCalledWith(`The photo by ${mockPhoto.user.name} was removed from favorites`);
     });
   });

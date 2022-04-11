@@ -8,7 +8,11 @@ export class NotificationService {
   private automateDismiss = 3000;
   constructor(private notification: MatSnackBar) { }
 
-  openNotification(message: string, action: string = 'Close'): void {
+  showNotification(message: string, action: string = 'Close'): void {
     this.notification.open(message, action, { duration: this.automateDismiss });
+  }
+
+  showError(message: string): void {
+    this.notification.open(message, 'X', {panelClass: ['error']});
   }
 }

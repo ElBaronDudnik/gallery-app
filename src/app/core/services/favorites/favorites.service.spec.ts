@@ -1,9 +1,9 @@
-import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { FavoritesService } from './favorites.service';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { mockPhoto } from '../../../shared/testing-helpers/photo.mock';
-import { of } from 'rxjs';
+
 
 describe('FavoritesService', () => {
   let service: FavoritesService;

@@ -23,7 +23,7 @@ export class PhotosService {
     this.http.getRandom(15).pipe(take(1)).subscribe(photos => {
       this.photos.next([...this.photos.getValue(), ...photos]);
       this.loader.hide();
-    });
+    }, () => { this.loader.hide() });
   }
 
   getPhotos(): Observable<Photo[]> {

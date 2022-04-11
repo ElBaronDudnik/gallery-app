@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Photo } from '../../../../core/models/photo';
 import { Observable } from 'rxjs';
 import { HttpService } from '../../../../core/services/http/http.service';
@@ -9,10 +9,11 @@ import { NotificationService } from '../../../../core/services/notification/noti
 @Component({
   selector: 'app-single-view',
   templateUrl: './single-view.component.html',
-  styleUrls: ['./single-view.component.scss']
+  styleUrls: ['./single-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleViewComponent implements OnInit {
-  photo!: Observable<Photo>;
+  photo!: Observable<Photo | null>;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -28,7 +29,7 @@ export class SingleViewComponent implements OnInit {
   }
 
   removeFromFavorites(photo: Photo): void {
-    this.notificationService.openNotification(`The photo by ${photo.user.name} was removed from favorites`);
+    this.notificationService.showNotification(`The photo by ${photo.user.name} was removed from favorites`);
     this.favoriteService.removeFromFavorites(photo);
   }
 }

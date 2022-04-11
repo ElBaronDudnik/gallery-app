@@ -1,10 +1,6 @@
-<div class="container" *ngIf="photo | async as photo; else noPhoto">
+<div class="container" *ngIf="photo | async as photo">
   <div class="img-container">
-    <img [src]="photo.urls.regular" [alt]="photo.alt_description">
+    <img [src]="photo?.urls?.regular" [alt]="photo?.alt_description">
   </div>
   <button mat-flat-button color="primary" (click)="removeFromFavorites(photo)">Remove from favorites</button>
 </div>
-
-<ng-template #noPhoto>
-  <div class="no-photo">Error for server. Cannot get</div>
-</ng-template>
